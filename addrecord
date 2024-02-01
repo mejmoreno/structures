@@ -1,0 +1,107 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+struct Player {
+string nickname;
+int age;
+double score1;
+double score2;
+double average;
+};
+int main() {
+const int maxPlayers = 5;
+Player players[maxPlayers];
+int playerCount = 0;
+int choice;
+do {
+cout << "==============================================\n";
+cout << "MENU\n";
+cout << "==============================================\n";
+cout << "1. Add record\n";
+cout << "2. View player records\n";
+cout << "3. Compute for the average\n";
+cout << "4. Show max average player(s)\n";
+cout << "5. Show min average player(s)\n";
+cout << "6. Exit\n";
+cout << "Enter your choice: ";
+cin >> choice;
+switch (choice) {
+case 1: {
+if (playerCount < maxPlayers) {
+cout << "Enter nickname: ";
+cin >> players[playerCount].nickname;
+cout << "Enter age: ";
+cin >> players[playerCount].age;
+cout << "Enter two best scores: ";
+cin >> players[playerCount].score1 >> players[playerCount].score2;
+players[playerCount].average = (players[playerCount].score1 + players[playerCount].score2) / 2.0;
+playerCount++;
+} else {
+cout << "Maximum player limit reached." << endl;
+}
+break;
+}
+case 2: {
+cout << "==============================================\n";
+cout << "Player Records\n";
+cout << "==============================================\n";
+for (int i = 0; i < playerCount; ++i) {
+cout << "Nickname: " << players[i].nickname << ", Age: " << players[i].age << ", Scores: " << players[i].score1 <<
+", " << players[i].score2 << endl;
+}
+break;
+}
+case 3: {
+cout << "==============================================\n";
+cout << "Player Averages\n";
+cout << "==============================================\n";
+for (int i = 0; i < playerCount; ++i) {
+cout << "Average for " << players[i].nickname << ": " << fixed << setprecision(2) << players[i].average << endl;
+}
+break;
+}
+case 4: {
+double maxAverage = -1;
+cout << "==============================================\n";
+cout << "Player(s) with max average:\n";
+cout << "==============================================\n";
+for (int i = 0; i < playerCount; ++i) {
+if (players[i].average > maxAverage) {
+maxAverage = players[i].average;
+}
+}
+for (int i = 0; i < playerCount; ++i) {
+if (players[i].average == maxAverage) {
+cout << "Nickname: " << players[i].nickname << ", Average: " << fixed << setprecision(2) << players[i].average
+<< endl;
+}
+}
+break;
+}
+case 5: {
+double minAverage = 999999; // Initializing with a large value
+cout << "==============================================\n";
+cout << "Player(s) with min average:\n";
+cout << "==============================================\n";
+for (int i = 0; i < playerCount; ++i) {
+if (players[i].average < minAverage) {
+minAverage = players[i].average;
+}
+}
+for (int i = 0; i < playerCount; ++i) {
+if (players[i].average == minAverage) {
+cout << "Nickname: " << players[i].nickname << ", Average: " << fixed << setprecision(2) << players[i].average
+<< endl;
+}
+}
+break;
+}
+case 6:
+cout << "Exiting program.\n";
+break;
+default:
+cout << "Invalid choice. Please enter a number between 1 and 6.\n";
+}
+} while (choice != 6);
+return 0;
+}
