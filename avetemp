@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct TempRecord {
+    string city;
+    double temps[7];
+};
+
+double calcAvgTemp(const TempRecord& rec) {
+    double sum = 0;
+    for (int i = 0; i < 7; ++i) {
+        sum += rec.temps[i];
+    }
+    return sum / 7.0;
+}
+
+int main() {
+    TempRecord rec;
+
+    cout << "Enter City: ";
+    getline(cin, rec.city);
+
+    cout << "Enter temperature for Monday to Sunday:\n";
+    for (int i = 0; i < 7; ++i) {
+        cout << "Temperature for day " << i + 1 << ": ";
+        cin >> rec.temps[i];
+    }
+
+    double avgTemp = calcAvgTemp(rec);
+    cout << "Average temperature in " << rec.city << " is: " << avgTemp << endl;
+
+    return 0;
+}
